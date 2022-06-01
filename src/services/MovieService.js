@@ -5,15 +5,16 @@ const ENDPOINTS = {
 };
 
 class MovieService extends ApiService {
-  getMovies = async () => {
-    const { data } = await this.apiClient.get(`${ENDPOINTS.MOVIES}`);
+  getMovies = async (page) => {
+    const { data } = await this.apiClient.get(`${ENDPOINTS.MOVIES}` + `?page=${page}`);
     return data;
 }
 
   getMovie = async (id) => {
-    const {data} = await this.apiClient.get(`${ENDPOINTS.MOVIES}/${id}`);
+    const {data} = await this.apiClient.get(`${ENDPOINTS.MOVIES}${id}`);
     return data;
 }
+
 }
 
 const movieService = new MovieService();

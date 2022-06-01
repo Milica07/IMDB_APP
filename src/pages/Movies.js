@@ -1,17 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectMovies } from "../store/movies/selectors";
+import { selectMovies, selectTotalPages } from "../store/movies/selectors";
 import { getMovies } from "../store/movies/slice";
 import MovieRow from "../components/MovieRow";
+import PageNavigation from "../components/PageNavigation";
 
 export default function Movies() {
     const dispatch = useDispatch();
     const movies = useSelector(selectMovies);
+    const totalPages = useSelector(selectTotalPages);
+    const [page, setPage] = useState(1);
 
     useEffect(() => {
-        dispatch(getMovies());
+        dispatch(getMovies(page));
     }, 
-    [dispatch]);
+    [dispatch, page]);
 
     return (
         <div>
@@ -24,6 +27,7 @@ export default function Movies() {
                         <MovieRow key={movie.id} movie={movie} />
                     ))}
                 </ul>
+                <PageNavigation setPage={setPage} page={page} totalPages={totalPages} />
                 </div>
             ) : (
                 <div>No search results found.</div>

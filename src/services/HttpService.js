@@ -27,7 +27,7 @@ class HttpService{
     
         switch (status) {
           case 401: {
-            this.unauthorizedCallback();
+            //this.unauthorizedCallback();
             break;
           }
           default:
