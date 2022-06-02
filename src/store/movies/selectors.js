@@ -9,3 +9,11 @@ export function selectMovie(state){
 export function selectTotalPages(state){
     return state.movies.totalPages;
 }
+
+export function selectSearchTitle(state){
+    return state.movies.title;
+} 
+
+export function movieGenres(state){
+    return state.movies.genres;
+} 

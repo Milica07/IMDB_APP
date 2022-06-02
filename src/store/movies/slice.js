@@ -3,6 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const middlewareActions = {
     getMovies: () => {},
     getMovie: () => {},
+    createMovie: () => {},
+    getGenres: () => {},
 };
 
 const moviesSlice = createSlice({
@@ -11,6 +13,8 @@ const moviesSlice = createSlice({
         movie: null ,
         movies: [],
         totalPages: 1,
+        title: null,
+        genres: [],
 },
     reducers: {
         setMovies: (state, action) => {
@@ -22,10 +26,17 @@ const moviesSlice = createSlice({
         setTotalPages: (state, action) => {
             state.totalPages = action.payload;
         },
+        setSearchTitle(state, action){
+            state.title = action.payload;
+        },
+        setMoviesWithNewMovie(state, action){
+            state.movies = [...state.movies, action.payload];
+        },
 
         ...middlewareActions
     }
 });
 
-export const { getMovies, getMovie, setMovies, setMovie, setTotalPages } = moviesSlice.actions;
+export const { getMovies, getMovie, setMovies, setMovie, setTotalPages, setSearchTitle, createMovie,
+    setMoviesWithNewMovie, getGenres } = moviesSlice.actions;
 export default moviesSlice.reducer;
