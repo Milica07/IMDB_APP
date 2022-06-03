@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { MOVIE_GENRES } from '../components/movies'
 
 import { getGenres, createMovie } from '../store/movies/slice';
-import { movieGenres } from '../store/movies/selectors';
 
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -21,7 +20,6 @@ const validationSchema = Yup.object({
 
 const CreateMovie = () => {
   const dispatch = useDispatch();
-  const genres = useSelector(movieGenres);
 
   useEffect(() => {
     dispatch(getGenres());

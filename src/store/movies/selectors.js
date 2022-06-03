@@ -13,7 +13,3 @@ export function selectTotalPages(state){
 export function selectSearchTitle(state){
     return state.movies.title;
 } 
-
-export function movieGenres(state){
-    return state.movies.genres;
-} 
