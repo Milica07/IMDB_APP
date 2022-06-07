@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectMovies, selectTotalPages } from "../store/movies/selectors";
-import { getMovies } from "../store/movies/slice";
+import { getMovies, likeMovie, dislikeMovie } from "../store/movies/slice";
 import MovieRow from "../components/MovieRow";
 import PageNavigation from "../components/PageNavigation";
 import MovieSearch from "../components/MovieSearch";
-
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import { MOVIE_GENRES } from '../components/movies'
+
 
 export default function Movies() {
     const dispatch = useDispatch();
@@ -45,6 +45,15 @@ export default function Movies() {
         setGenre(event.target.value)
     };
 
+    const handleLikeMovie = (id) => {
+        dispatch(likeMovie(id));
+    };
+    
+      const handleDislikeMovie = (id) => {
+        dispatch(dislikeMovie(id));
+    };
+
+
     return (
         <div>
             <br/>
@@ -62,10 +71,12 @@ export default function Movies() {
                 <div>
                 <ul>
                     {movies.map((movie) => (
-                        <MovieRow key={movie.id} movie={movie} />
+                        <MovieRow key={movie.id} movie={movie}
+                        onLike={handleLikeMovie}
+                        onDislike={handleDislikeMovie}/>
                     ))}
                 </ul>
-                <PageNavigation setPage={setPage} page={page} totalPages={totalPages} />
+                <PageNavigation setPage={setPage} page={page} totalPages={totalPages}/>
                 </div>
             ) : (
                 <div>No search results found.</div>

@@ -5,6 +5,9 @@ const middlewareActions = {
     getMovie: () => {},
     createMovie: () => {},
     getGenres: () => {},
+    getRelatedMovies: () => {},
+    likeMovie: () => {},
+    dislikeMovie: () => {},
 };
 
 const moviesSlice = createSlice({
@@ -15,6 +18,7 @@ const moviesSlice = createSlice({
         totalPages: 1,
         title: null,
         genres: [],
+        related: [],
 },
     reducers: {
         setMovies: (state, action) => {
@@ -32,11 +36,18 @@ const moviesSlice = createSlice({
         setMoviesWithNewMovie(state, action){
             state.movies = [...state.movies, action.payload];
         },
-
+        setRelatedMovies(state, action){
+            state.related = action.payload;
+        },
+        updateMovie(state, action){
+          state.movies = [...state.movies, action.payload];
+        },
         ...middlewareActions
     }
 });
 
 export const { getMovies, getMovie, setMovies, setMovie, setTotalPages, setSearchTitle, createMovie,
-    setMoviesWithNewMovie, getGenres } = moviesSlice.actions;
+    setMoviesWithNewMovie, getGenres, setRelatedMovies, getRelatedMovies, 
+    likeMovie, dislikeMovie, updateMovie,
+    } = moviesSlice.actions;
 export default moviesSlice.reducer;

@@ -40,12 +40,12 @@ function App() {
           <Route exact path="/"> 
             <Redirect to="/movies"/>
           </Route>
-          <Route exact path="/movies">
+          <PrivateRoute exact path="/movies">
             <Movies/>
-          </Route>
-          <Route exact path="/movies/:id">
+          </PrivateRoute>
+          <PrivateRoute exact path="/movies/:id">
             <SingleMoviePage/>
-          </Route>
+          </PrivateRoute>
           <Route exact path="/create-movie/">
             <CreateMovie/>
           </Route>
