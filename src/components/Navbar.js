@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../store/auth/slice";
 import { selectActiveUser, selectIsAuthenticated } from "../store/auth/selectors";
 import '../App.css';
+import { createMovie } from "../store/movies/slice";
 
 export default function Navbar(){
     const dispatch = useDispatch();
@@ -12,7 +13,6 @@ export default function Navbar(){
     function handleLogout(){
         dispatch(logout());
     }
-
 
     return (
         <div>
@@ -31,8 +31,10 @@ export default function Navbar(){
                 </li>
                 <br/>
                 {isAuthenticated ? (
-
+                    <div>
                         <button onClick={handleLogout}>Logout</button>
+                        <Link to='/create-movie'>CreateMovie</Link>
+                    </div>
                 ) : (
                     <>
                         <li>
