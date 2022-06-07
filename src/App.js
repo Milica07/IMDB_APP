@@ -11,7 +11,7 @@ import Login from "./pages/Login";
 import GuestRoute from "./components/shared/GuestRoute";
 import PrivateRoute from './components/shared/PrivateRoute';
 import Movies from './pages/Movies';
-
+import SingleMoviePage from './pages/SingleMoviePage';
 
 function App() {
   const dispatch = useDispatch();
@@ -41,6 +41,9 @@ function App() {
           </Route>
           <Route exact path="/movies">
             <Movies/>
+          </Route>
+          <Route exact path="/movies/:id">
+            <SingleMoviePage/>
           </Route>
         </Switch>
       </Router>

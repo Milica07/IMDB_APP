@@ -5,3 +5,7 @@ export function selectMovies(state){
 export function selectMovie(state){
     return state.movies.movie;
 }
+
+export function selectTotalPages(state){
+    return state.movies.totalPages;
+}

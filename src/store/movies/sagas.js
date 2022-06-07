@@ -1,12 +1,13 @@
 import { put, call, takeLatest } from "redux-saga/effects";
-import { getMovies, getMovie, setMovies, setMovie } from "./slice";
+import { getMovies, getMovie, setMovies, setMovie, setTotalPages } from "./slice";
 import movieService from "../../services/MovieService";
 
 function* handleGetMovies(action){
     try{
         const movies = yield call(movieService.getMovies, action.payload);
         console.log(movies);
-        yield put(setMovies(movies));
+        yield put(setMovies(movies.results));
+        yield put(setTotalPages(movies.total_pages))
     } catch (error){
         alert(error.message);
     }
