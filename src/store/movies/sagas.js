@@ -1,6 +1,8 @@
 import { put, call, takeLatest } from "redux-saga/effects";
 import { getMovies, getMovie, setMovies, setMovie, setTotalPages,
-    createMovie, setMoviesWithNewMovie } from "./slice";
+    createMovie, setMoviesWithNewMovie, setRelatedMovies, getRelatedMovies, 
+    likeMovie, dislikeMovie, updateMovie,
+    } from "./slice";
 import movieService from "../../services/MovieService";
 import { history } from "../../history";
 
@@ -34,6 +36,37 @@ function* handleCreateMovie(action){
     }
 }
 
+function* handleRelatedMovies(action) {
+    try {
+      const relatedMovies = yield call(movieService.getRelatedMovies, action.payload);
+      console.log(relatedMovies);
+      yield put(setRelatedMovies(relatedMovies.results));
+    } catch (error) {
+        console.log(error.message);
+    }
+  }
+
+function* handleLikeMovie(action) {
+    try {
+      const liked = yield call(movieService.likeMovie, action.payload);
+      yield put(setMovie(liked));
+      yield put(updateMovie(liked));
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+  
+function* handleDislikeMovie(action) {
+    try {
+      const disliked = yield call(movieService.dislikeMovie, action.payload);
+      console.log(disliked);
+      yield put(setMovie(disliked));
+      yield put(updateMovie(disliked));
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
 export function* watchGetMovies(){
     yield takeLatest(getMovies.type, handleGetMovies);
 }
@@ -44,6 +77,18 @@ export function* watchGetMovie(){
 
 export function* watchCreateMovie(){
     yield takeLatest(createMovie.type, handleCreateMovie);
+}
+
+export function* watchGetRelatedMovies(){
+    yield takeLatest(getRelatedMovies.type, handleRelatedMovies);
+}
+
+export function* watchLikeMovie(){
+  yield takeLatest(likeMovie.type, handleLikeMovie);
+}
+
+export function* watchDislikeMovie(){
+  yield takeLatest(dislikeMovie.type, handleDislikeMovie);
 }
 
 function forwardTo(location) {

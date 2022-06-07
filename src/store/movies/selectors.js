@@ -13,3 +13,7 @@ export function selectTotalPages(state){
 export function selectSearchTitle(state){
     return state.movies.title;
 } 
+
+export function selectRelatedMovies(state){
+    return state.movies.related;
+} 

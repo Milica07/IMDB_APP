@@ -18,17 +18,20 @@ export default function Navbar(){
         <div>
             <nav>
                 {isAuthenticated ? (
+                    <div>
                     <h5 >
                         Welcome {activeUser && activeUser.name} 
                     </h5>
+                        <li>
+                        <Link to="/movies">Movies</Link>
+                        </li>
+                    </div>
                 ) : (
                     <h3>
                         Guest
                     </h3>
                 )}
-                <li>
-                    <Link to="/movies">Movies</Link>
-                </li>
+
                 <br/>
                 {isAuthenticated ? (
                     <div>
