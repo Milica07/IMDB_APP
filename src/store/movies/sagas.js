@@ -1,7 +1,8 @@
 import { put, call, takeLatest } from "redux-saga/effects";
 import { getMovies, getMovie, setMovies, setMovie, setTotalPages,
     createMovie, setMoviesWithNewMovie, setRelatedMovies, getRelatedMovies, 
-    likeMovie, dislikeMovie, updateMovie,
+    likeMovie, dislikeMovie, updateMovie, getPopular, setPopular, postComment, setComments,
+    getComments, addComment, setWatchList, getWatchList, addRemoveWatchList, updateWatched, setCommentsCount
     } from "./slice";
 import movieService from "../../services/MovieService";
 import { history } from "../../history";
@@ -67,6 +68,63 @@ function* handleDislikeMovie(action) {
     }
   }
 
+  function* handlePopularGet(action) {
+    try {
+      const data = yield call(movieService.getPopular, action.payload);
+      yield put(setPopular(data));
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  function* handleMovieComment(action) {
+    try {
+      const data = yield call(movieService.postComment, action.payload);
+      yield put(addComment(data));
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  function* handleCommentsGet(action) {
+    try {
+      const { data } = yield call(movieService.getComments, action.payload);
+      yield put(setComments(data.results));
+      yield put(setCommentsCount(data.count))
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  function* handleWatchList(action) {
+    try {
+      const { data } = yield call(movieService.getWatchList, action.payload);
+      yield put(setWatchList(data));
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  function* handleWatchListAddRemove(action) {
+    try {
+      const data = yield call(movieService.addRemoveWatchList, action.payload);
+      yield put(setMovie(data));
+      yield put(updateMovie(data));
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  function* handleWatchedUpdate(action) {
+    try {
+      const data = yield call(movieService.updateWatched, action.payload);
+      yield put(setMovie(data));
+      yield put(updateMovie(data));
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
 export function* watchGetMovies(){
     yield takeLatest(getMovies.type, handleGetMovies);
 }
@@ -89,6 +147,30 @@ export function* watchLikeMovie(){
 
 export function* watchDislikeMovie(){
   yield takeLatest(dislikeMovie.type, handleDislikeMovie);
+}
+
+export function* watchPopularGet(){
+  yield takeLatest(getPopular.type, handlePopularGet);
+}
+
+export function* watchMovieComment(){
+  yield takeLatest(postComment.type, handleMovieComment);
+}
+
+export function* watchCommentsGet(){
+  yield takeLatest(getComments.type, handleCommentsGet);
+}
+
+export function* watchWatchList(){
+  yield takeLatest(getWatchList.type, handleWatchList);
+}
+
+export function* watchWatchListAddRemove(){
+  yield takeLatest(addRemoveWatchList.type, handleWatchListAddRemove);
+}
+
+export function* watchWatchedUpdate(){
+  yield takeLatest(updateWatched.type, handleWatchedUpdate);
 }
 
 function forwardTo(location) {

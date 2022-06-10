@@ -13,6 +13,8 @@ import PrivateRoute from './components/shared/PrivateRoute';
 import Movies from './pages/Movies';
 import SingleMoviePage from './pages/SingleMoviePage';
 import CreateMovie from './pages/CreateMovie';
+import PopularMoviesPage from './pages/PopularMoviesPage';
+import WatchList from './pages/WatchList';
 
 function App() {
   const dispatch = useDispatch();
@@ -49,6 +51,12 @@ function App() {
           <Route exact path="/create-movie/">
             <CreateMovie/>
           </Route>
+          <PrivateRoute exact path="/popular">
+            <PopularMoviesPage/>
+          </PrivateRoute>
+          <PrivateRoute exact path='/watch-list'>
+            <WatchList/>
+          </PrivateRoute>
         </Switch>
       </Router>
     </div>
