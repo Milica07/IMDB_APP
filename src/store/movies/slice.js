@@ -8,6 +8,13 @@ const middlewareActions = {
     getRelatedMovies: () => {},
     likeMovie: () => {},
     dislikeMovie: () => {},
+    getPopular: () => {},
+    postComment: () => {},
+    getComments: () => {},
+    getWatchList: () => {},
+    addRemoveWatchList: () => {},
+    watchListAddRemove: () => {},
+    updateWatched: () => {},
 };
 
 const moviesSlice = createSlice({
@@ -19,6 +26,10 @@ const moviesSlice = createSlice({
         title: null,
         genres: [],
         related: [],
+        popular: [],
+        comments: [],
+        commentsCount: 0,
+        watchList: [],
 },
     reducers: {
         setMovies: (state, action) => {
@@ -40,7 +51,22 @@ const moviesSlice = createSlice({
             state.related = action.payload;
         },
         updateMovie(state, action){
-          state.movies = [...state.movies, action.payload];
+            state.movies = [...state.movies, action.payload];
+        },
+        setPopular(state, action){
+            state.popular = action.payload;
+        },
+        setComments(state, action){
+            state.comments = action.payload;
+        },
+        addComment(state, action){
+            state.comments = [...state.comments, action.payload];
+        },
+        setWatchList(state, action){
+            state.watchList = action.payload;
+        },
+        setCommentsCount(state, action){
+            state.commentsCount = action.payload;
         },
         ...middlewareActions
     }
@@ -49,5 +75,8 @@ const moviesSlice = createSlice({
 export const { getMovies, getMovie, setMovies, setMovie, setTotalPages, setSearchTitle, createMovie,
     setMoviesWithNewMovie, getGenres, setRelatedMovies, getRelatedMovies, 
     likeMovie, dislikeMovie, updateMovie,
+    getPopular, setPopular,
+    addComment, setComments, postComment, getComments,
+    getWatchList, setWatchList, addRemoveWatchList, watchListAddRemove, updateWatched, setCommentsCount
     } = moviesSlice.actions;
 export default moviesSlice.reducer;
